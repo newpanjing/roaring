@@ -210,6 +210,26 @@ func (rb *Bitmap) ToArray() []uint64 {
 	return array
 }
 
+func (rb *Bitmap) GetRange(start uint64,end uint64) [] uint64{
+
+	if end > rb.getCardinality()
+		end=rb.getCardinality()
+	size :=end-start
+	rs :=make([]uint64,size)
+
+	pos := start
+	pos2 := uint64(0)
+
+	for pos < end {
+		hs := uint64(rb.highlowcontainer.getKeyAtIndex(pos)) << 32
+		c := rb.highlowcontainer.getContainerAtIndex(pos)
+		pos++
+		c.ManyIterator().NextMany64(hs, rs[pos2:])
+		pos2 += c.GetCardinality()
+	}
+	return rs
+}
+
 // GetSizeInBytes estimates the memory usage of the Bitmap. Note that this
 // might differ slightly from the amount of bytes required for persistent storage
 func (rb *Bitmap) GetSizeInBytes() uint64 {
