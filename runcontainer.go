@@ -198,7 +198,7 @@ func newRunContainer16FromVals(alreadySorted bool, vals ...uint16) *runContainer
 
 // newRunContainer16FromBitmapContainer makes a new run container from bc,
 // somewhat efficiently. For reference, see the Java
-// https://github.com/RoaringBitmap/RoaringBitmap/blob/master/src/main/java/org/roaringbitmap/RunContainer.java#L145-L192
+// https://github.com/newpanjing/roaringBitmap/blob/master/src/main/java/org/roaringbitmap/RunContainer.java#L145-L192
 func newRunContainer16FromBitmapContainer(bc *bitmapContainer) *runContainer16 {
 
 	rc := &runContainer16{}
@@ -2289,7 +2289,7 @@ func runArrayUnionToRuns(rc *runContainer16, ac *arrayContainer) ([]interval16, 
 
 // lazyIOR is described (not yet implemented) in
 // this nice note from @lemire on
-// https://github.com/RoaringBitmap/roaring/pull/70#issuecomment-263613737
+// https://github.com/newpanjing/roaring/pull/70#issuecomment-263613737
 //
 // Description of lazyOR and lazyIOR from @lemire:
 //
@@ -2575,7 +2575,7 @@ func (rc *runContainer16) Or(b *Bitmap) *Bitmap {
 
 // serializedSizeInBytes returns the number of bytes of memory
 // required by this runContainer16. This is for the
-// Roaring format, as specified https://github.com/RoaringBitmap/RoaringFormatSpec/
+// Roaring format, as specified https://github.com/newpanjing/roaringFormatSpec/
 func (rc *runContainer16) serializedSizeInBytes() int {
 	// number of runs in one uint16, then each run
 	// needs two more uint16

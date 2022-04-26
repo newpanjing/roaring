@@ -6,7 +6,7 @@ import (
 )
 
 // writeTo for runContainer16 follows this
-// spec: https://github.com/RoaringBitmap/RoaringFormatSpec
+// spec: https://github.com/newpanjing/roaringFormatSpec
 //
 func (b *runContainer16) writeTo(stream io.Writer) (int, error) {
 	buf := make([]byte, 2+4*len(b.iv))

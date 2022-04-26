@@ -12,7 +12,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/RoaringBitmap/roaring/internal"
+	"github.com/newpanjing/roaring/internal"
 )
 
 // Bitmap represents a compressed bitmap where you can add integers.
@@ -42,7 +42,7 @@ func (rb *Bitmap) FromBase64(str string) (int64, error) {
 // WriteTo writes a serialized version of this bitmap to stream.
 // The format is compatible with other RoaringBitmap
 // implementations (Java, C) and is documented here:
-// https://github.com/RoaringBitmap/RoaringFormatSpec
+// https://github.com/newpanjing/roaringFormatSpec
 func (rb *Bitmap) WriteTo(stream io.Writer) (int64, error) {
 	return rb.highlowcontainer.writeTo(stream)
 }
@@ -63,7 +63,7 @@ func (rb *Bitmap) ToBytes() ([]byte, error) {
 func (rb *Bitmap) Checksum() uint64 {
 	const (
 		offset = 14695981039346656037
-		prime = 1099511628211
+		prime  = 1099511628211
 	)
 
 	var bytes []byte
@@ -109,7 +109,7 @@ func (rb *Bitmap) Checksum() uint64 {
 // ReadFrom reads a serialized version of this bitmap from stream.
 // The format is compatible with other RoaringBitmap
 // implementations (Java, C) and is documented here:
-// https://github.com/RoaringBitmap/RoaringFormatSpec
+// https://github.com/newpanjing/roaringFormatSpec
 // Since io.Reader is regarded as a stream and cannot be read twice.
 // So add cookieHeader to accept the 4-byte data that has been read in roaring64.ReadFrom.
 // It is not necessary to pass cookieHeader when call roaring.ReadFrom to read the roaring32 data directly.
@@ -126,7 +126,7 @@ func (rb *Bitmap) ReadFrom(reader io.Reader, cookieHeader ...byte) (p int64, err
 // FromBuffer creates a bitmap from its serialized version stored in buffer
 //
 // The format specification is available here:
-// https://github.com/RoaringBitmap/RoaringFormatSpec
+// https://github.com/newpanjing/roaringFormatSpec
 //
 // The provided byte array (buf) is expected to be a constant.
 // The function makes the best effort attempt not to copy data.
@@ -276,9 +276,9 @@ type intIterator struct {
 	// This way, instead of making up-to 64k allocations per full iteration
 	// we get a single allocation and simply reinitialize the appropriate
 	// iterator and point to it in the generic `iter` member on each key bound.
-	shortIter        shortIterator
-	runIter          runIterator16
-	bitmapIter       bitmapContainerShortIterator
+	shortIter  shortIterator
+	runIter    runIterator16
+	bitmapIter bitmapContainerShortIterator
 }
 
 // HasNext returns true if there are more integers to iterate over
@@ -352,9 +352,9 @@ type intReverseIterator struct {
 	iter             shortIterable
 	highlowcontainer *roaringArray
 
-	shortIter        reverseIterator
-	runIter          runReverseIterator16
-	bitmapIter       reverseBitmapContainerShortIterator
+	shortIter  reverseIterator
+	runIter    runReverseIterator16
+	bitmapIter reverseBitmapContainerShortIterator
 }
 
 // HasNext returns true if there are more integers to iterate over
@@ -425,9 +425,9 @@ type manyIntIterator struct {
 	iter             manyIterable
 	highlowcontainer *roaringArray
 
-	shortIter        shortIterator
-	runIter          runIterator16
-	bitmapIter       bitmapContainerManyIterator
+	shortIter  shortIterator
+	runIter    runIterator16
+	bitmapIter bitmapContainerManyIterator
 }
 
 func (ii *manyIntIterator) init() {
@@ -1505,7 +1505,7 @@ func (rb *Bitmap) RemoveRange(rangeStart, rangeEnd uint64) {
 	if rangeEnd-1 > MaxUint32 {
 		// logically, we should assume that the user wants to
 		// remove all values from rangeStart to infinity
-		// see https://github.com/RoaringBitmap/roaring/issues/141
+		// see https://github.com/newpanjing/roaring/issues/141
 		rangeEnd = uint64(0x100000000)
 	}
 	hbStart := uint32(highbits(uint32(rangeStart)))

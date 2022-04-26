@@ -23,7 +23,7 @@ To run the smat tests for roaring...
 
 2.  Build go-fuzz test program with instrumentation:
 ```
-    go-fuzz-build -func FuzzSmat github.com/RoaringBitmap/roaring
+    go-fuzz-build -func FuzzSmat github.com/newpanjing/roaring
 ```
 
 3.  Run go-fuzz:

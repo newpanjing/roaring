@@ -3,7 +3,7 @@ name: default
 
 workspace:
   base: /go
-  path: src/github.com/RoaringBitmap/roaring
+  path: src/github.com/newpanjing/roaring
 
 steps:
 - name: test

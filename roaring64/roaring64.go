@@ -8,7 +8,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/RoaringBitmap/roaring"
+	"github.com/newpanjing/roaring"
 )
 
 const serialCookieNoRunContainer = 12346 // only arrays and bitmaps
@@ -80,7 +80,7 @@ func (rb *Bitmap) WriteTo(stream io.Writer) (int64, error) {
 // ReadFrom reads a serialized version of this bitmap from stream.
 // The format is compatible with other RoaringBitmap
 // implementations (Java, C) and is documented here:
-// https://github.com/RoaringBitmap/RoaringFormatSpec
+// https://github.com/newpanjing/roaringFormatSpec
 func (rb *Bitmap) ReadFrom(stream io.Reader) (p int64, err error) {
 	cookie, r32, p, err := tryReadFromRoaring32(rb, stream)
 	if err != nil {
@@ -210,12 +210,13 @@ func (rb *Bitmap) ToArray() []uint64 {
 	return array
 }
 
-func (rb *Bitmap) GetRange(start uint64,end uint64) [] uint64{
+func (rb *Bitmap) GetRange(start int, end int) []uint64 {
 
-	if end > rb.getCardinality()
-		end=rb.getCardinality()
-	size :=end-start
-	rs :=make([]uint64,size)
+	if uint64(end) > rb.GetCardinality() {
+		end = int(rb.GetCardinality())
+	}
+	size := end - start
+	rs := make([]uint64, size)
 
 	pos := start
 	pos2 := uint64(0)
